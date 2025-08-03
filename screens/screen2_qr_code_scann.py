@@ -59,8 +59,13 @@ class Screen2ValidatingTicket(QWidget):
         try:
             req = requests.post(f"{apiUrl}/api/ticketRoute/checkTicket/{ticket}")
             data = req.json()
+            estado = data.get("estado", False)
+            print(data)
             if req.status_code == 200:
-                self.app.pass_data_to_screen_3(data) 
+                if estado == "pendiente":
+                    return self.app.pass_data_to_screen_3(data, ticket) 
+                if estado == "pagado":
+                    self.app.goToErrorPage('Este Boleto ya está pagado')
             else:
                 self.app.go_to(2) 
         except Exception as e:

@@ -19,36 +19,44 @@ class Screen2FErrorWhileCheckingTicket(QWidget):
         logo.setPixmap(QPixmap("assets/logoOriginalsmartparking.png").scaled(400, 100, Qt.KeepAspectRatio))
         logo.setAlignment(Qt.AlignLeft)
 
-        title = QLabel("Ups! Hubo un error, intente nuevamente, si el error persiste, intente más tarde.")
-        title.setFont(QFont("Arial", 28))
-        title.setAlignment(Qt.AlignCenter)
+        self.errorMessage = "Ups! Hubo un error, intente nuevamente, si el error persiste, intente más tarde."
+        self.titleLabel = QLabel(self.errorMessage)
+        self.titleLabel.setFont(QFont("Arial", 28))
+        self.titleLabel.setAlignment(Qt.AlignCenter)
 
         top_container.addWidget(logo)
         top_container.setAlignment(Qt.AlignLeft)
         top_container.setSpacing(0)
         
-        qr_img = QLabel()
-        qr_img.setPixmap(QPixmap("assets/warning_icon.png").scaled(400, 600, Qt.KeepAspectRatio))
-        qr_img.setAlignment(Qt.AlignCenter)
+        errorGifMovie = QMovie("assets/error.gif")
+        errorGifMovie.setScaledSize(QSize(200,200))
+        errorGifMovie.start()
+        errorGifLabel = QLabel()
+        errorGifLabel.setMovie(errorGifMovie)
+        errorGifLabel.setAlignment(Qt.AlignCenter)
         
         button = QPushButton('Intentar Nuevamente')
         button.setFixedHeight(40)
-        button.setStyleSheet("font-size: 20px; background-color: #086972; color: white;border: none; border-radius: 5px; ")
+        button.setStyleSheet("font-size: 20px; background-color: #086972; color: white;border: none; border-radius: 5px; padding: 10px 50px;")
         button.clicked.connect(self.goToStart)
 
              
         outer_layout.addLayout(top_container)
         outer_layout.addSpacing(20)
-        outer_layout.addWidget(title)
+        outer_layout.addWidget(self.titleLabel)
         outer_layout.addSpacing(20)
-        outer_layout.addWidget(qr_img)
+        outer_layout.addWidget(errorGifLabel)
         outer_layout.addSpacing(20)
-        outer_layout.addWidget(button)
+        outer_layout.addWidget(button, alignment=Qt.AlignCenter)
 
         outer_layout.setAlignment(Qt.AlignTop)
 
         self.setLayout(outer_layout)
         
     def goToStart(self):
-        self.app.go_to(0)   
+        self.app.go_to(0)
         
+    def handleErrorMessage(self, errorMessage:str = "Ups, intente más tarde"):
+        self.errorMessage = errorMessage
+        self.titleLabel.setText(self.errorMessage)
+        self.app.go_to(2)

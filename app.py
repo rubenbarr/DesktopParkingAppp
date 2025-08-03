@@ -25,11 +25,14 @@ class App(QStackedWidget):
         
         
     def go_to(self,index):
-        print(f"Switching to screen {index}")
         self.setCurrentIndex(index)
         
     def pass_data_to_screen_2(self, data):
         self.validatingTicket.get_ticket_data(data)
         
-    def pass_data_to_screen_3(self, data):
-        self.paymentScreen3.setTotalAmount(data)
+    def pass_data_to_screen_3(self, data, ticketId):
+        self.paymentScreen3.setTotalAmount(data, ticketId)
+        
+    def goToErrorPage(self, errorMessage):
+        print('error page here')
+        self.validatingTicketFailed.handleErrorMessage(errorMessage)

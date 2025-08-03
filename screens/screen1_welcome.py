@@ -35,7 +35,7 @@ class Screen1Welcome(QWidget):
         self.qr_input = QLineEdit()
         self.qr_input.setPlaceholderText("qrCode")
         self.qr_input.textChanged.connect(self.handle_text_change)
-        self.qr_input.setFixedHeight(0)
+        # self.qr_input.setFixedHeight(0)
         
 
 
