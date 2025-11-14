@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QLineEdit, QHBoxLayout
 from PyQt5.QtGui import QPixmap, QFont, QMovie
 from PyQt5.QtCore import Qt, QSize
 import requests
-import time
 from settings import apiUrl
 
 
@@ -60,12 +59,17 @@ class Screen2ValidatingTicket(QWidget):
             req = requests.post(f"{apiUrl}/api/ticketRoute/checkTicket/{ticket}")
             data = req.json()
             estado = data.get("estado", False)
-            print(data)
+            tolerancia = data.get('tolerancia', False)
+            tiempo_restante = data.get('tiempo_restante', 0)
             if req.status_code == 200:
+                if estado == "pagado":
+                    return self.app.goToErrorPage('Este Boleto ya está pagado', 'error',  data)
+                if tolerancia:
+                    return self.app.goToErrorPage(f'Cuenta con {tiempo_restante} minutos para salir', 'alert', data)
                 if estado == "pendiente":
                     return self.app.pass_data_to_screen_3(data, ticket) 
-                if estado == "pagado":
-                    self.app.goToErrorPage('Este Boleto ya está pagado')
+                if not estado:
+                    return self.app.goToErrorPage(data.get('message', 'Hubo un error intente más tarde o solicite ayuda'), 'error',  data)
             else:
                 self.app.go_to(2) 
         except Exception as e:

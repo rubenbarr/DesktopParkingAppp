@@ -1,0 +1,89 @@
+{
+    "logs": [
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-11 10:40:02.476487",
+            "error": "unsupported operand type(s) for /: 'str' and 'str'"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-11 10:40:07.709000",
+            "error": "unsupported operand type(s) for /: 'str' and 'str'"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-11 10:40:46.407714",
+            "error": "unsupported operand type(s) for /: 'str' and 'str'"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-11 10:42:57.848444",
+            "error": "unsupported operand type(s) for /: 'str' and 'str'"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-11 10:52:34.493257",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A256E9B620>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-11 10:57:39.745966",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000202E864B620>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 12:47:00.290401",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000024BE3EBB770>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 12:48:25.970193",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000212B1A8B770>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 13:00:10.530316",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E49870B770>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 13:29:35.184919",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018A71B43770>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 13:33:39.363685",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018A721BB110>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 13:34:24.213127",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018A721BBB10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 13:37:38.743403",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001903C04B770>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-12 13:38:12.026564",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001903C6AB110>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando los datos en retiro de dinero",
+            "fecha": "2025-11-13 10:04:03.290475",
+            "error": "'kioscoId'"
+        },
+        {
+            "action": "Actualizando datos de cambios",
+            "fecha": "2025-11-13 10:24:36.927618",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000262038E7620>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+            "action": "Actualizando los datos en retiro de dinero",
+            "fecha": "2025-11-13 10:28:57.521837",
+            "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/kiosco_routes/addKioscoData/109f8a97-67aa-4fb5-9d89-4c93e5f7f41d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027573C1B620>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        }
+    ]
+}
