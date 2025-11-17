@@ -25,6 +25,24 @@ class TicketsScreen(QWidget):
         self.page = 1
         self.limit = 10
         self.can_load_more = True
+        self.fromDateString = str(datetime.now().isoformat().split("T")[0])
+        self.toDateString = str(datetime.now().isoformat().split("T")[0])
+        
+        self.setStyleSheet("""
+                            QPushButton {
+                                background-color: #086972; 
+                                color: white; 
+                                padding: 4px 8px; 
+                                border-radius: 8px;
+                            }
+                            QPushButton:hover {
+                                background-color: #c0c0c0;
+                            }
+                            QPushButton:pressed {
+                                background-color: #055056; 
+                            }
+                           """)
+        
         
         with open (kioscoInfo, 'r') as info :
             self.kioskInf = json.load(info) 
@@ -69,12 +87,12 @@ class TicketsScreen(QWidget):
         
         
         self.searchBtn = QPushButton("Buscar")
-        self.searchBtn.setStyleSheet("background-color: #086972; color: white; padding: 8px 20px; border-radius: 10px;")
+        # self.searchBtn.setStyleSheet("background-color: #086972; color: white; padding: 8px 20px; border-radius: 10px;")
         self.searchBtn.setFont(QFont('Arial', 15))
-        self.searchBtn.clicked.connect(lambda: self.getTickets(self.page, self.limit))
+        self.searchBtn.clicked.connect(self.getTicketsFromDate)
         
         self.goBackButton = QPushButton("Regresar")
-        self.goBackButton.setStyleSheet("background-color: #086972; color: white; padding: 8px 20px; border-radius: 10px; margin-left:10px")
+        # self.goBackButton.setStyleSheet("background-color: #086972; color: white; padding: 8px 20px; border-radius: 10px; margin-left:10px")
         self.goBackButton.setFont(QFont('Arial', 15))
         self.goBackButton.clicked.connect(lambda: self.app.go_to(5))
         
@@ -87,8 +105,8 @@ class TicketsScreen(QWidget):
         
         
         self.ticketsTable = QTableWidget()
-        self.ticketsTable.setColumnCount(6)
-        self.ticketsTable.setHorizontalHeaderLabels(['Entrada', 'puerta', 'Estado', 'Pagado',  'Monto', 'accion' ])
+        self.ticketsTable.setColumnCount(7)
+        self.ticketsTable.setHorizontalHeaderLabels(['Entrada', 'puerta', 'Estado', 'Pagado', 'Salida' , 'Monto', 'accion' ])
         self.ticketsTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.ticketsTable.setStyleSheet("font-size: 14px; border: 1px solid #ccc;")
         
@@ -100,7 +118,7 @@ class TicketsScreen(QWidget):
         self.totalLabelTitle.setFont(QFont('Arial', 13))
         dataInfoLayout.addWidget(self.totalLabelTitle)
         self.LoadMoreButton = QPushButton("Cargar Mas")
-        self.LoadMoreButton.setStyleSheet("background-color: #086972; color: white; padding: 8px 20px; border-radius: 10px; margin-left:10px")
+        # self.LoadMoreButton.setStyleSheet("background-color: #086972; color: white; padding: 8px 20px; border-radius: 10px; margin-left:10px")
         self.LoadMoreButton.setFont(QFont('Arial', 15))
         self.LoadMoreButton.clicked.connect(lambda: self.loadMore())
         dataInfoLayout.addWidget(self.LoadMoreButton)
@@ -149,12 +167,18 @@ class TicketsScreen(QWidget):
         self.getTickets(nextPage, self.limit)
 
 
+    def getTicketsFromDate(self):
+       self.fromDateString = self.fromDate.date().toString("yyyy-MM-dd")
+       self.toDateString = self.toDate.date().toString("yyyy-MM-dd")
+       self.getTickets(self.page, self.limit)
+       
+
+    
     def getTickets(self, page, limit):
         self.loadingOverLay.setGeometry(self.rect())
         self.loadingOverLay.raise_()
         self.loadingOverLay.setVisible(True)
-        
-        self.worker = GetTicketClass(self.kioscoId, self.kioskToken, self.locationId, page, limit)
+        self.worker = GetTicketClass(self.kioscoId, self.kioskToken, self.locationId, page, limit, self.fromDateString, self.toDateString)
         self.worker.done.connect(self.onSuccessTicketsCall)
         self.worker.failed.connect(self.onErrorTicketCall)
         self.worker.start()
@@ -182,12 +206,13 @@ class TicketsScreen(QWidget):
                     self.ticketsTable.setItem(row, 1, QTableWidgetItem(ticket.get("gateLabel", "-")))
                     self.ticketsTable.setItem(row, 2, QTableWidgetItem(ticket.get("estado", "-")))
                     self.ticketsTable.setItem(row, 3, QTableWidgetItem(ticket.get("fechaPago", "-")))
-                    self.ticketsTable.setItem(row, 4, QTableWidgetItem(montoPagado))
+                    self.ticketsTable.setItem(row, 4, QTableWidgetItem(ticket.get("fechaSalida", "-")))
+                    self.ticketsTable.setItem(row, 5, QTableWidgetItem(montoPagado))
             
-                    btn = QPushButton("Ver")
-                    btn.setStyleSheet("background-color: #086972; color: white; padding: 4px 8px; border-radius: 8px;")
+                    btn = QPushButton("Reimprimir")
+                    # btn.setStyleSheet("background-color: #086972; color: white; padding: 4px 8px; border-radius: 8px;")
                     btn.clicked.connect(lambda _, t=ticket: self.handleTicketAction(t))
-                    self.ticketsTable.setCellWidget(row, 5, btn)
+                    self.ticketsTable.setCellWidget(row, 6, btn)
                     
     def handleTicketAction(self, ticket):
         print(f"Action triggered for ticket ID: {ticket}")
@@ -208,18 +233,20 @@ class GetTicketClass(QThread):
     done = pyqtSignal(dict)
     failed = pyqtSignal(str)
     
-    def __init__(self, kioscoId, kioscoToken, locationId, page, limit):
+    def __init__(self, kioscoId, kioscoToken, locationId, page, limit, fromDate, toDate):
         super().__init__()
         self.kioscoId = kioscoId
         self.kioscoToken = kioscoToken
         self.locationId = locationId
         self.page = page
         self.limit = limit
+        self.fromDate = fromDate
+        self.toDate = toDate
     
     def run(self):
         try:
             headers = { 'token': self.kioscoToken, 'locationId': self.locationId }
-            req = requests.get(f'{getTicketsFromKioskURL}/{self.kioscoId}?page={self.page}&limit={self.limit}', headers=headers, timeout=6000)
+            req = requests.get(f'{getTicketsFromKioskURL}/{self.kioscoId}?page={self.page}&limit={self.limit}&fromDate={self.fromDate}&toDate={self.toDate}', headers=headers, timeout=6000)
             res = req.json()
             self.done.emit(res)
         except Exception as e:
